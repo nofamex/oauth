@@ -5,6 +5,8 @@ const userSchema = new Schema({
   fullName: { type: String, required: true },
   npm: { type: String, required: true },
   password: { type: String, required: true },
+  accessToken: String,
+  refreshToken: String,
   createdAt: { type: String, default: Date.now() },
 });
 

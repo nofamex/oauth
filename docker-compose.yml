@@ -6,9 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile
     volumes:
-      - type: bind
-        source: ./
-        target: /app
+      - .:/app
     ports:
       - 5000:5000
     restart: always
@@ -19,8 +17,16 @@ services:
       DB_NAME: ${DB_NAME}
       DB_PORT: ${DB_PORT}
       PORT: ${PORT}
+      REDIS_URL: ${REDIS_URL}
     depends_on:
       - mongodb
+      - redis
+
+  redis:
+    container_name: oauth-cache
+    image: redis:alpine
+    ports:
+      - 6379:6379
 
   mongodb:
     container_name: oauth-db
