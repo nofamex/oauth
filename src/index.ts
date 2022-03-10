@@ -1,9 +1,11 @@
-import express, { Express, Request, Response } from "express";
-
-const app: Express = express();
+import { Request, Response } from "express";
+import { app } from "./config";
+import { initDB } from "./db/db";
 
 app.get("/", (req: Request, res: Response) => {
   res.send("welcome to nofamex oauth api");
 });
 
-app.listen(process.env.PORT || "500", () => console.log("server starting"));
+initDB();
+
+app.listen(process.env.PORT || "5000", () => console.log("server starting"));
