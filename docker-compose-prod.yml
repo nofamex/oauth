@@ -1,0 +1,42 @@
+version: "3.8"
+services:
+  server:
+    container_name: oauth-server
+    build:
+      context: .
+      dockerfile: prod.Dockerfile
+    ports:
+      - 5000:5000
+    restart: always
+    environment:
+      DB_HOST: ${DB_HOST}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
+      DB_PORT: ${DB_PORT}
+      PORT: ${PORT}
+      REDIS_URL: ${REDIS_URL}
+    depends_on:
+      - mongodb
+      - redis
+
+  redis:
+    container_name: oauth-cache
+    image: redis:alpine
+    ports:
+      - 6379:6379
+
+  mongodb:
+    container_name: oauth-db
+    image: mongo:latest
+    volumes:
+      - db-data:/data/db
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${DB_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - 27017:27017
+
+volumes:
+  db-data:
