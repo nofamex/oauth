@@ -5,7 +5,7 @@ import { BAD_REQUEST, OK } from "http-status";
 import Client from "../schema/client";
 import { v4 as uuidv4 } from "uuid";
 import randomstring from "randomstring";
-import { body, param, validationResult } from "express-validator";
+import { body, query, validationResult } from "express-validator";
 import {
   clientIdNotFoundError,
   noUsernameFoundError,
@@ -66,11 +66,11 @@ oauthRouter.post(
 
 oauthRouter.post(
   "/token",
-  param("username").not().isEmpty(),
-  param("password").not().isEmpty(),
-  param("grant_type").not().isEmpty(),
-  param("client_id").not().isEmpty(),
-  param("client_secret").not().isEmpty(),
+  query("username").not().isEmpty(),
+  query("password").not().isEmpty(),
+  query("grant_type").not().isEmpty(),
+  query("client_id").not().isEmpty(),
+  query("client_secret").not().isEmpty(),
   async (req: Request, res: Response) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
