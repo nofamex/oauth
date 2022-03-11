@@ -6,6 +6,7 @@
   "scripts": {
     "start:dev": "nodemon build/src/index.js",
     "build:dev": "tsc --watch --preserveWatchOutput",
+    "build": "tsc",
     "dev": "nodemon src/index.ts"
   },
   "keywords": [],
