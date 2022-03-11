@@ -1,7 +1,8 @@
 import mongoose from "mongoose";
 
 export const initDB = () => {
-  const DBURL = `mongodb+srv://nofame:ra43f4ieDbqCGBO5@cluster0.rymax.mongodb.net/oauth?retryWrites=true&w=majority`;
+  const { DB_HOST, DB_USER, DB_PASSWORD, DB_NAME, DB_PORT } = process.env;
+  const DBURL = `${DB_HOST}://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}?authSource=admin`;
 
   mongoose
     .connect(DBURL)
